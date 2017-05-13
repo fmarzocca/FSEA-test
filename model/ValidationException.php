@@ -1,10 +1,13 @@
 <?php
-
-/*
-*  Exception thrown from the model and catched by the controller 
-*  in case of any validation errors.
-*
-*/
+/**
+ * ValidationException class
+ *
+ * The class handles Exception thrown from the model and catched by the 
+ * controller
+ *
+ * @package    FSEA-test
+ * @author     Fabio Marzocca <fabio@marzocca.net>
+ */
 
 class ValidationException extends Exception {
     

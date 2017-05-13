@@ -1,10 +1,12 @@
 <?php
-
-/*
-*
-*    Model API used by the Controller
-*
-*/
+/**
+ * UserService class
+ *
+ * The class represents the Model API used by the Controller
+ *
+ * @package    FSEA-test
+ * @author     Fabio Marzocca <fabio@marzocca.net>
+ */
 
 require_once 'model/UsersGateway.php';
 require_once 'model/ValidationException.php';
@@ -14,6 +16,12 @@ class UsersService {
     private $usersGateway    = NULL;
     private $DB = NULL;
     
+    /**
+    * PDO connection to the database
+    *
+    * @return a PDO object on success
+    * @access private
+    */
     private function openDb() {	
 
 		try {
@@ -23,18 +31,33 @@ class UsersService {
 			}
 				
 		$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
 		return $DB;	
     }
     
+    /**
+    * Sets the PDO object to NULL
+    *
+    * @access private
+    */
     private function closeDb() {
         $this->DB= NULL;
      }
   
+    /**
+    * Instantiates a new gateway
+    *
+    * @access public
+    */
     public function __construct() {
         $this->usersGateway = new UsersGateway();
     }
     
+    /**
+    * Instructs the gateway to retrieve the complete list of users
+    *
+    * @param  string  $order The ascending order of the list
+    * @access public
+    */
     public function getAllUsers($order) {
         try {
             $link=$this->openDb();
@@ -47,6 +70,12 @@ class UsersService {
         }
     }
     
+    /**
+    * Retrieve a single user based on ID
+    *
+    * @param  string  $id the ID
+    * @return the user record
+    */
     public function getUser($id) {
         try {
             $link=$this->openDb();
@@ -60,6 +89,12 @@ class UsersService {
         return $this->usersGateway->find($id);
     }
     
+	/**
+	 * Validate user parameters before saving the record
+	 *
+	 * @param string $first, $last, $email, $password	 
+	 * @access private
+	 */
     private function validateUserParams( $first, $last, $email, $password ) {
         $errors = array();
         if ( !isset($first) || empty($first) ) {
@@ -82,6 +117,12 @@ class UsersService {
         throw new ValidationException($errors);
     }
     
+	/**
+	 * Creates a new user
+	 *
+	 * @param string $first, $last, $email, $password	
+	 * 
+	 */
     public function createNewUser( $first, $last, $email, $password ) {
         try {
             $link=$this->openDb();
@@ -94,7 +135,13 @@ class UsersService {
             throw $e;
         }
     }
-    
+
+	/**
+	 * Deletes single user
+	 *
+	 * @param int $id The ID of the user to be deleted
+ 	 * @access public
+	 */    
     public function deleteUser( $id ) {
         try {
             $link=$this->openDb();
@@ -106,6 +153,12 @@ class UsersService {
         }
     }
     
+	/**
+	 * Edits user by ID 
+	 *
+	 * @param int $id The ID of the user to be edited
+	 * @access public
+	 */
     public function editUser ($first, $last, $email, $password,$id) {
         try {
             $link=$this->openDb();
