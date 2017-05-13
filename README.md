@@ -9,7 +9,7 @@ Description
 
 The application provides a very basic MVC framework that implements a CRUD functionality over a database of users. Users passwords are encrypted with AES and not shown in the GUI.
 
-A database dump file (fsea.sql) is provided to create and populate the table "fsea" into the "my_app" database.
+A database dump file (fsea.sql) is provided to create and populate the table `fsea` into the `my_app` database.
 
 As far as the Model is concerned,  UsersService object does not work with the database directly; instead it uses the UsersGateway object which in return issues queries to the database. 
 
@@ -25,8 +25,8 @@ I have tried to deeply test all the functions and every test case, but I am not 
 
 Use:
 
-- Run 'valgrant up' from the application root folder;
-- Access valgrant by 'ssh valgrant@textbox.dev
-- Create and populate the database table from the file fsea.sql
-- Access application from www.textbox.dev
+- Run `valgrant up` from the application root folder;
+- Access valgrant by `ssh valgrant@textbox.dev`
+- Create and populate the database table from the file `fsea.sql`
+- Access application from `www.textbox.dev`
 
