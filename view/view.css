@@ -1,0 +1,60 @@
+h1 {
+	font-family: Arial;
+	color: #0E7BBC;
+	text-align: center;
+}
+
+body {
+	background-color: #FbFbFb;
+}
+
+#addform {
+	width: 250px; 
+	margin:auto; 
+    margin-top:100px;
+}
+
+#userstable {
+	width: 90%;
+	margin: auto;
+	}
+	
+.adduser {
+	float:right;
+	margin-bottom: 20px;
+	}
+	
+table.users {
+	width: 100%;
+	margin: auto;
+}
+
+table.users thead {
+	background-color: #eee;
+	text-align: left;
+}
+
+table.users thead th {
+	border: solid 1px #fff;
+	padding: 3px;
+}
+
+table.users tbody td {
+	border: solid 1px #eee;
+	padding: 3px;
+}
+
+a, a:hover, a:active, a:visited {
+	color: #b44646;
+    text-decoration: underline;
+    }
+
+table.users tr.e {
+	background-color:#FFFFCC;
+	}
+	
+table.users tr.o {
+	background-color: #f0f0f0;
+	}
+	
+	
