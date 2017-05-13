@@ -7,7 +7,8 @@
  * @package    FSEA-test
  * @author     Fabio Marzocca <fabio@marzocca.net>
  */
-
+Namespace FSEA\Controller;
+use FSEA\Model;
 
 require_once 'model/UsersService.php';
 
@@ -19,7 +20,7 @@ class UsersController
     
     public function __construct()
     {
-        $this->usersService = new UsersService();
+        $this->usersService = new \FSEA\Model\UsersService();
     }
     
     public function redirect($location)

@@ -7,7 +7,8 @@
  * @package    FSEA-test
  * @author     Fabio Marzocca <fabio@marzocca.net>
  */
-
+Namespace FSEA\Model;
+use \PDO;
 class UsersGateway
 {
 

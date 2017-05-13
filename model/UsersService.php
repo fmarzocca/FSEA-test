@@ -7,6 +7,8 @@
  * @package    FSEA-test
  * @author     Fabio Marzocca <fabio@marzocca.net>
  */
+Namespace FSEA\Model;
+use \PDO;
 
 require_once 'model/UsersGateway.php';
 require_once 'model/ValidationException.php';
@@ -14,6 +16,7 @@ require_once 'model/ValidationException.php';
 
 class UsersService
 {
+
     private $usersGateway    = null;
     private $DB = null;
     
