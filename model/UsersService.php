@@ -82,7 +82,7 @@ class UsersService
     * Retrieve a single user based on ID
     *
     * @param  string  $id the ID
-    * @return the user record
+    * 
     */
     public function getUser($id)
     {
@@ -95,7 +95,7 @@ class UsersService
             $this->closeDb();
             throw $e;
         }
-        return $this->usersGateway->find($id);
+        return; 
     }
     
     /**
