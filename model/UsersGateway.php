@@ -11,76 +11,48 @@ class UsersGateway {
         if ( !isset($order) ) {
             $order = "first";
         }
-        $dbOrder =  mysqli_real_escape_string($link, $order);
-        $sql1 = "SELECT * FROM ".DB_TABLE." ORDER BY $dbOrder ASC";
-        $dbres=$link->query($sql1) ;
-        if (!$dbres) {
-    		printf("Errormessage: %s\n", mysqli_error($link));
-		}
-        $users = array();
-        
-        while ($obj = $dbres->fetch_object()) {
-            $users[] = $obj;
-        }
-            /* free result set */
-        mysqli_free_result($dbres);
-
+		$query = $link->prepare("SELECT * FROM ".DB_TABLE." ORDER BY $order ASC");
+		$query->execute();
+		$users = array();
+		$users = $query->fetchAll(PDO::FETCH_OBJ);
         return $users;
     }
     
     public function selectById($id, $link) {
-        $dbId = mysqli_real_escape_string($link,$id);
-        
         /* decrypt password to allow user edit */
-        $sql1 = "SELECT first, last, email,aes_decrypt(password,'secret') as password FROM ".DB_TABLE." WHERE id=$dbId";
-        $dbres = $link->query($sql1);
-        if (!$dbres) {
-    		printf("Errormessage: %s\n", mysqli_error($link));
-		}
-        
-        return $dbres->fetch_object();
-		
+        $query = $link->prepare("SELECT first, last, email,aes_decrypt(password,'secret') as password FROM ".DB_TABLE." WHERE id=:id");
+        $query->bindParam(':id',$id);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_OBJ);
     }
     
     public function insert( $first, $last, $email, $password, $link ) {
-        
-    	$dbFirst = ($first != NULL)?"'".mysqli_real_escape_string($link,$first)."'":'NULL';
-        $dbLast = ($last != NULL)?"'".mysqli_real_escape_string($link,$last)."'":'NULL';
-        $dbEmail = ($email != NULL)?"'".mysqli_real_escape_string($link,$email)."'":'NULL';
-        $dbPassword = ($password != NULL)?"'".mysqli_real_escape_string($link,$password)."'":'NULL';
-        
+                
         /* passwords are stored into database with AES encrypting algorythm */
-        $sql1 = "INSERT INTO ".DB_TABLE." (first, last, email, password) VALUES ($dbFirst, $dbLast, $dbEmail, AES_ENCRYPT($dbPassword,'secret'))";
-        $dbres = $link->query($sql1);
-        if (!$dbres) {
-    		printf("Errormessage: %s\n", mysqli_error($link));
-		}
-        
-        return mysqli_insert_id();
+        $query=$link->prepare("INSERT INTO ".DB_TABLE." (first, last, email, password) VALUES (:first, :last, :email, AES_ENCRYPT(:password,'secret'))");
+        $query->bindParam(':first', $first,PDO::PARAM_STR);
+        $query->bindParam(':last', $last,PDO::PARAM_STR);
+        $query->bindParam(':email', $email,PDO::PARAM_STR);
+        $query->bindParam(':password', $password,PDO::PARAM_STR);        
+        $query->execute();
+ 		return $link->lastInsertId();;        
     }
     
     public function delete($id, $link) {
-        $dbId = mysqli_real_escape_string($link,$id);
-        $sql1 = "DELETE FROM ".DB_TABLE." WHERE id=$dbId";
-        $dbres = $link->query($sql1);
-        if (!$dbres) {
-    		printf("Errormessage: %s\n", mysqli_error($link));
-		}
+		$query=$link->prepare("DELETE FROM ".DB_TABLE." WHERE id=:id");
+        $query->bindParam(':id',$id);
+        $query->execute();
     }
     
     public function edit($first, $last, $email, $password, $id, $link) {
-    	$dbId = mysqli_real_escape_string($link,$id);
-    	$dbFirst = ($first != NULL)?"'".mysqli_real_escape_string($link,$first)."'":'NULL';
-        $dbLast = ($last != NULL)?"'".mysqli_real_escape_string($link,$last)."'":'NULL';
-        $dbEmail = ($email != NULL)?"'".mysqli_real_escape_string($link,$email)."'":'NULL';  
-        $dbPassword = ($password != NULL)?"'".mysqli_real_escape_string($link,$password)."'":'NULL';
-
-        /* passwords are stored into database with AES encrypting algorythm */
-		$sql1 = "UPDATE ".DB_TABLE." SET first=$dbFirst, last=$dbLast, email=$dbEmail, password=AES_ENCRYPT($dbPassword,'secret') WHERE id=$dbId";
-		$dbres = $link->query($sql1);
-        if (!$dbres) {
-    		printf("Errormessage: %s\n", mysqli_error($link));
-		}
+    
+        /* passwords are stored into database with AES encrypting algorythm */    
+        $query=$link->prepare("UPDATE ".DB_TABLE." SET first=:first, last=:last, email=:email, password=AES_ENCRYPT(:password,'secret') WHERE id=$id");
+        $query->bindParam(':first', $first,PDO::PARAM_STR);
+        $query->bindParam(':last', $last,PDO::PARAM_STR);
+        $query->bindParam(':email', $email,PDO::PARAM_STR);
+        $query->bindParam(':password', $password,PDO::PARAM_STR);        
+        $query->execute();
     }
     
 }

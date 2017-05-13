@@ -12,20 +12,24 @@ require_once 'model/ValidationException.php';
 
 class UsersService {
     private $usersGateway    = NULL;
-    private $mysqli = NULL;
+    private $DB = NULL;
     
-    private function openDb() {
-    	$this->mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS,DB_NAME);
-		
-		if (mysqli_connect_errno()) {
-    		throw new Exception("Failed connection to the database!");
-    		}
-		return $this->mysqli;
+    private function openDb() {	
+
+		try {
+			$DB = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME,DB_USER, DB_PASS);
+			} catch (PDOException $e) {
+			die("Could not connect to database");
+			}
+				
+		$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		return $DB;	
     }
     
     private function closeDb() {
-        mysqli_close($this->mysqli);
-    }
+        $this->DB= NULL;
+     }
   
     public function __construct() {
         $this->usersGateway = new UsersGateway();
@@ -33,8 +37,8 @@ class UsersService {
     
     public function getAllUsers($order) {
         try {
-            $this->openDb();
-            $res = $this->usersGateway->selectAll($order,$this->mysqli);
+            $link=$this->openDb();
+            $res = $this->usersGateway->selectAll($order,$link);
             $this->closeDb();
             return $res;
         } catch (Exception $e) {
@@ -45,8 +49,8 @@ class UsersService {
     
     public function getUser($id) {
         try {
-            $this->openDb();
-            $res = $this->usersGateway->selectById($id,$this->mysqli);
+            $link=$this->openDb();
+            $res = $this->usersGateway->selectById($id,$link);
             $this->closeDb();
             return $res;
         } catch (Exception $e) {
@@ -80,9 +84,9 @@ class UsersService {
     
     public function createNewUser( $first, $last, $email, $password ) {
         try {
-            $this->openDb();
+            $link=$this->openDb();
             $this->validateUserParams($first, $last, $email, $password);
-            $res = $this->usersGateway->insert($first, $last, $email, $password, $this->mysqli);
+            $res = $this->usersGateway->insert($first, $last, $email, $password, $link);
             $this->closeDb();
             return $res;
         } catch (Exception $e) {
@@ -93,8 +97,8 @@ class UsersService {
     
     public function deleteUser( $id ) {
         try {
-            $this->openDb();
-            $res = $this->usersGateway->delete($id, $this->mysqli);
+            $link=$this->openDb();
+            $res = $this->usersGateway->delete($id, $link);
             $this->closeDb();
         } catch (Exception $e) {
             $this->closeDb();
@@ -104,9 +108,9 @@ class UsersService {
     
     public function editUser ($first, $last, $email, $password,$id) {
         try {
-            $this->openDb();
+            $link=$this->openDb();
             $this->validateUserParams($first, $last, $email, $password);
-            $res = $this->usersGateway->edit($first, $last, $email, $password, $id, $this->mysqli);
+            $res = $this->usersGateway->edit($first, $last, $email, $password, $id, $link);
             $this->closeDb();
         } catch (Exception $e) {
             $this->closeDb();
