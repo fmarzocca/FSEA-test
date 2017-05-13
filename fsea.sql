@@ -16,7 +16,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `contacts`
+-- Table structure for table `fsea`
 --
 
 DROP TABLE IF EXISTS `fsea`;
@@ -27,19 +27,19 @@ CREATE TABLE `fsea` (
   `first` varchar(128) NOT NULL,
   `last` varchar(128) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `password` varbinary(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `contacts`
+-- Dumping data for table `fsea`
 --
 
-LOCK TABLES `contacts` WRITE;
-/*!40000 ALTER TABLE `contacts` DISABLE KEYS */;
-INSERT INTO `contacts` VALUES (2,'Fabio','Marzocca','fabio@marzocca.net','123456789'),(3,'Jim','Morrison','jim@morrison.com','765432'),(4,'John','Doe','john@doe.com','888888'),(5,'Albert','Einstein','albert@einstein.com','987654321');
-/*!40000 ALTER TABLE `contacts` ENABLE KEYS */;
+LOCK TABLES `fsea` WRITE;
+/*!40000 ALTER TABLE `fsea` DISABLE KEYS */;
+INSERT INTO `fsea` VALUES (8,'Fabio','Marzocca','fabio@marzocca.net','8(\èÏ‰a\ÙJ<|©Q`'),(9,'Albert','Einstein','albert@einstein.com','}É«d)‡{\'avŠôQ¸•'),(10,'Jim','Morrison','jim@morrison.com','[Ó–—ùˆ\Ú\n2j–fx¨¹'),(11,'John','Fogerty','john@fogerty.com','Q’+fŽtU\æ‘‚.ŒÜ“');
+/*!40000 ALTER TABLE `fsea` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-12 11:58:44
+-- Dump completed on 2017-05-12 13:05:10
