@@ -6,5 +6,3 @@ require 'db.inc.php';
 $controller = new UsersController();
 
 $controller->handleRequest();
-
-?>

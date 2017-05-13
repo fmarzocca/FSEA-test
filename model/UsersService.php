@@ -12,9 +12,10 @@ require_once 'model/UsersGateway.php';
 require_once 'model/ValidationException.php';
 
 
-class UsersService {
-    private $usersGateway    = NULL;
-    private $DB = NULL;
+class UsersService
+{
+    private $usersGateway    = null;
+    private $DB = null;
     
     /**
     * PDO connection to the database
@@ -22,16 +23,17 @@ class UsersService {
     * @return a PDO object on success
     * @access private
     */
-    private function openDb() {	
+    private function openDb()
+    {
 
-		try {
-			$DB = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME,DB_USER, DB_PASS);
-			} catch (PDOException $e) {
-			die("Could not connect to database");
-			}
-				
-		$DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		return $DB;	
+        try {
+            $DB = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+        } catch (PDOException $e) {
+            die("Could not connect to database");
+        }
+                
+        $DB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        return $DB;
     }
     
     /**
@@ -39,16 +41,18 @@ class UsersService {
     *
     * @access private
     */
-    private function closeDb() {
-        $this->DB= NULL;
-     }
+    private function closeDb()
+    {
+        $this->DB= null;
+    }
   
     /**
     * Instantiates a new gateway
     *
     * @access public
     */
-    public function __construct() {
+    public function __construct()
+    {
         $this->usersGateway = new UsersGateway();
     }
     
@@ -58,10 +62,11 @@ class UsersService {
     * @param  string  $order The ascending order of the list
     * @access public
     */
-    public function getAllUsers($order) {
+    public function getAllUsers($order)
+    {
         try {
             $link=$this->openDb();
-            $res = $this->usersGateway->selectAll($order,$link);
+            $res = $this->usersGateway->selectAll($order, $link);
             $this->closeDb();
             return $res;
         } catch (Exception $e) {
@@ -76,10 +81,11 @@ class UsersService {
     * @param  string  $id the ID
     * @return the user record
     */
-    public function getUser($id) {
+    public function getUser($id)
+    {
         try {
             $link=$this->openDb();
-            $res = $this->usersGateway->selectById($id,$link);
+            $res = $this->usersGateway->selectById($id, $link);
             $this->closeDb();
             return $res;
         } catch (Exception $e) {
@@ -89,41 +95,43 @@ class UsersService {
         return $this->usersGateway->find($id);
     }
     
-	/**
-	 * Validate user parameters before saving the record
-	 *
-	 * @param string $first, $last, $email, $password	 
-	 * @access private
-	 */
-    private function validateUserParams( $first, $last, $email, $password ) {
+    /**
+     * Validate user parameters before saving the record
+     *
+     * @param string $first, $last, $email, $password
+     * @access private
+     */
+    private function validateUserParams($first, $last, $email, $password)
+    {
         $errors = array();
-        if ( !isset($first) || empty($first) ) {
+        if (!isset($first) || empty($first)) {
             $errors[] = 'First Name is required';
         }
-        if ( !isset($last) || empty($last) ) {
+        if (!isset($last) || empty($last)) {
             $errors[] = 'Last Name is required';
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-  			$errors[] = 'Invalid email format'; 
-		}
-        if ( !isset($password) || empty($password) ) {
+            $errors[] = 'Invalid email format';
+        }
+        if (!isset($password) || empty($password)) {
             $errors[] = 'Password is required';
         }
 
-        if ( empty($errors) ) {
+        if (empty($errors)) {
             return;
         }
         throw new ValidationException($errors);
     }
     
-	/**
-	 * Creates a new user
-	 *
-	 * @param string $first, $last, $email, $password	
-	 * 
-	 */
-    public function createNewUser( $first, $last, $email, $password ) {
+    /**
+     * Creates a new user
+     *
+     * @param string $first, $last, $email, $password
+     *
+     */
+    public function createNewUser($first, $last, $email, $password)
+    {
         try {
             $link=$this->openDb();
             $this->validateUserParams($first, $last, $email, $password);
@@ -136,13 +144,14 @@ class UsersService {
         }
     }
 
-	/**
-	 * Deletes single user
-	 *
-	 * @param int $id The ID of the user to be deleted
- 	 * @access public
-	 */    
-    public function deleteUser( $id ) {
+    /**
+     * Deletes single user
+     *
+     * @param int $id The ID of the user to be deleted
+     * @access public
+     */
+    public function deleteUser($id)
+    {
         try {
             $link=$this->openDb();
             $res = $this->usersGateway->delete($id, $link);
@@ -153,13 +162,14 @@ class UsersService {
         }
     }
     
-	/**
-	 * Edits user by ID 
-	 *
-	 * @param int $id The ID of the user to be edited
-	 * @access public
-	 */
-    public function editUser ($first, $last, $email, $password,$id) {
+    /**
+     * Edits user by ID
+     *
+     * @param int $id The ID of the user to be edited
+     * @access public
+     */
+    public function editUser($first, $last, $email, $password, $id)
+    {
         try {
             $link=$this->openDb();
             $this->validateUserParams($first, $last, $email, $password);
@@ -169,10 +179,5 @@ class UsersService {
             $this->closeDb();
             throw $e;
         }
-     
-    
     }
-    
 }
-
-?>

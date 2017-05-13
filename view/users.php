@@ -23,7 +23,7 @@
             </thead>
             <tbody>
             <?php $rowclass="e"; ?>
-            <?php foreach ($users as $user): ?>
+            <?php foreach ($users as $user) : ?>
                 <tr class="<?php echo($rowclass); ?>">
                     <td><?php print htmlentities($user->first); ?></a></td>
                     <td><?php print htmlentities($user->last); ?></td>
