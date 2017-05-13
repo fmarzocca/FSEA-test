@@ -28,5 +28,5 @@ Use:
 - Run `valgrant up` from the application root folder;
 - Access valgrant by `ssh valgrant@textbox.dev`
 - Create and populate the database table from the file `fsea.sql`
-- Access application from `www.textbox.dev`
+- Access application pointing the browser to `www.textbox.dev`
 
