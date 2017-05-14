@@ -25,8 +25,8 @@ I have tried to deeply test all the functions and every test case, but I am not 
 
 Use:
 
-- Run `valgrant up` from the application root folder;
-- Access valgrant by `ssh valgrant@textbox.dev`
+- Run `vagrant up` from the application root folder;
+- Access valgrant by `ssh vagrant@textbox.dev`
 - Change directory to `/vagrant`
 - Create and populate the database table from the file `fsea.sql`
 - Access application pointing the browser to `www.textbox.dev`
