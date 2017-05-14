@@ -1,0 +1,20 @@
+{
+    "name": "FSEA - Formstack Software Engineer Assignment",
+    "type": "project",
+    "description": "A basic MVC framework that implements a CRUD functionality over a database of users",
+    "keywords": ["CRUD", "Formstack"],
+    "homepage": "https://github.com/fmarzocca/FSEA-test",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fabio Marzocca"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/fmarzocca/FSEA-test/issues",
+        "source": "https://github.com/fmarzocca/FSEA-test"
+    },
+    "require": {
+        "php": ">=5.3.0"
+    }
+}

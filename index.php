@@ -12,6 +12,7 @@
  */
 require_once 'controller/UsersController.php';
 require 'db.inc.php';
+require 'vendor/autoload.php';
 
 $controller = new \FSEA\Controller\UsersController();
 
