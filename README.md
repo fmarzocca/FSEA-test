@@ -17,9 +17,6 @@ Standard **PDO** extension has been used for accessing database, as well as **Na
 
 At the moment, there is no class in the model that represents the User entity, instead I used standard PHP objects automatically created from the database record. This is not very OO but it was quick and the User entity was really so simple (4 fields) not to accept this slight lightness...
 
-No additional files/libs have been added to the provided Vagrant box.
-
-I have tried to deeply test all the functions and every test case, but I am not providing a PHPUnit code coverage, as I am not yet fully confident with PHPUnit and the time for this test wasn't enough to deepen my knowledge on it. I am confident that in a week or so I could study the testing framework.
 
 ------------------------------
 
