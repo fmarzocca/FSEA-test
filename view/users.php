@@ -2,11 +2,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Formstack Software Engineer Assignment</title>
+        <title>Fast Software Engineer Assignment</title>
         <link rel="stylesheet" href="view/view.css">
     </head>
     <body>
-    	<h1>Formstack Software Engineer Assignment</h1>
+    	<h1>Fast Software Engineer Assignment</h1>
     	<div id="userstable">
         <div class="adduser"><a href="index.php?op=new">Add new user</a></div>
         <br />

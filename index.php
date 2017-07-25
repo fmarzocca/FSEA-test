@@ -2,7 +2,7 @@
 
 /**
  * A simple PHP MVC CRUD application
- * to cover Formstack Software Engineer Assignment
+ * to cover Fast Software Engineer Assignment
  *
  * @package FSEA-test
  * @author Fabio Marzocca

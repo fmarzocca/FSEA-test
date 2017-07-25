@@ -1,8 +1,8 @@
 {
-    "name": "FSEA - Formstack Software Engineer Assignment",
+    "name": "FSEA - Fast Software Engineer Assignment",
     "type": "project",
     "description": "A basic MVC framework that implements a CRUD functionality over a database of users",
-    "keywords": ["CRUD", "Formstack"],
+    "keywords": ["CRUD", "FSEA"],
     "homepage": "https://github.com/fmarzocca/FSEA-test",
     "license": "MIT",
     "authors": [
